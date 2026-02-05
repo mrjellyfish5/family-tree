@@ -1,0 +1,61 @@
+#include <dynamicarray/dynamicArray.h>
+#include <stdlib.h>
+#include <string.h>
+
+// dynamic array operations
+DA_DynamicArray *da_create(size_t max_size) {
+	DA_DynamicArray *da = malloc(sizeof(*da));
+	*da = (DA_DynamicArray){
+		.data = malloc(sizeof(*(da->data)) * max_size),
+		.max_size = max_size
+	};
+	return da;
+}
+void da_add(DA_DynamicArray *da, void *e) {
+	// if reached max capacity, double the size of da->data
+	if (da->size == da->max_size) {
+		void **new_data = malloc(sizeof(*new_data) * da->max_size * 2);
+		memcpy(new_data, da->data, sizeof(*(da->data)) * da->size);
+		free(da->data);
+		da->data = new_data;
+		da->max_size *= 2;
+	}
+
+	da->data[da->size] = e;
+	da->size++;
+}
+void da_remove(DA_DynamicArray *da, void *e) {
+	size_t i = da_find_index(da, e);
+	
+	// elemnt not found
+	if (i == da->size) 
+		return;
+	
+	da->size--;
+	
+	for (; i < da->size; i++) {
+		da->data[i] = da->data[i+1];
+	}
+	// if size < max_size / 4, half the size of da->data
+	if (da->size < da->max_size / 4) {
+		void **new_data = malloc(sizeof(*new_data) * da->max_size / 2);
+		memcpy(new_data, da->data, sizeof(*(da->data)) * da->size);
+		free(da->data);
+		da->data = new_data;
+		da->max_size /= 2;
+	}
+}
+void da_destroy(DA_DynamicArray *da) {
+	free(da->data);
+	free(da);
+}
+
+// index finder
+size_t da_find_index(DA_DynamicArray *da, void *e) {
+	size_t i;
+	for (i = 0; i < da->size; i++) {
+		if (da->data[i] == e) 
+			return i;
+	}
+	return i;
+}
