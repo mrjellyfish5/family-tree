@@ -8,21 +8,22 @@ extern "C" {
 #include <stddef.h>
 
 typedef struct DA_DynamicArray {
-	void **data;
+	const void **data;
 	size_t size;
 	size_t max_size;
 } DA_DynamicArray;
 
-DA_DynamicArray *da_create(size_t max_size);
-void da_add(DA_DynamicArray *da, void *e);
-void da_remove(DA_DynamicArray *da, void *e);
+DA_DynamicArray *da_create();
+void da_add(DA_DynamicArray *da, const void *e);
+void da_remove(DA_DynamicArray *da, const void *e);
 void da_destroy(DA_DynamicArray *da);
 
 // index finder
-size_t da_find_index(DA_DynamicArray *da, void *e);
+size_t da_find_index(DA_DynamicArray *da, const void *e);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif
+

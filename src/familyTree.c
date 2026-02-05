@@ -268,7 +268,7 @@ DA_DynamicArray *ft_person_get_siblings(const FT_Person *p) {
 		return NULL;
 
 	if (p->father && p->mother) {
-		return ft_couple_get_children(father, mother);
+		return ft_couple_get_children(p->father, p->mother);
 	}
 	DA_DynamicArray *siblings = da_create(1);
 	if (p->father) {

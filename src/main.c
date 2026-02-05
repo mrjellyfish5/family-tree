@@ -32,6 +32,5 @@ int main(void) {
 
 void print_tree(FT_Person *focus) {
 	DA_DynamicArray *generations = da_create(1);
-	populate_generations(generations, focus, 
 }
 
