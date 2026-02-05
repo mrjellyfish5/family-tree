@@ -284,5 +284,6 @@ DA_DynamicArray *ft_person_get_siblings(const FT_Person *p) {
 		return siblings;
 	}
 
+	da_add(siblings, p);
 	return siblings;
 }

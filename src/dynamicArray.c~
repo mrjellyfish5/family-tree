@@ -40,7 +40,7 @@ void da_remove(DA_DynamicArray *da, const void *e) {
 	}
 	// if size < max_size / 4, half the size of da->data
 	if (da->size < da->max_size / 4) {
-		void **new_data = malloc(sizeof(*new_data) * da->max_size / 2);
+		const void **new_data = malloc(sizeof(*new_data) * da->max_size / 2);
 		memcpy(new_data, da->data, sizeof(*(da->data)) * da->size);
 		free(da->data);
 		da->data = new_data;

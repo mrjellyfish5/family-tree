@@ -14,7 +14,7 @@ typedef struct DA_DynamicArray {
 } DA_DynamicArray;
 
 DA_DynamicArray *da_create();
-void da_add(DA_DynamicArray *da, void *e);
+void da_add(DA_DynamicArray *da, const void *e);
 void da_remove(DA_DynamicArray *da, const void *e);
 void da_destroy(DA_DynamicArray *da);
 
